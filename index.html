@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>TYAF TEAM — карты, моды и текстур-паки для Minecraft</title>
+  <meta name="description" content="TYAF TEAM — команда сценаристов, билдеров и программистов. Сюжетные карты, моды и текстур-паки для Minecraft Bedrock." />
+  <meta name="theme-color" content="#04020a" />
+  <meta name="color-scheme" content="dark light" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="TYAF TEAM" />
+  <meta property="og:title" content="TYAF TEAM — Minecraft Crew" />
+  <meta property="og:description" content="Сюжетные карты, моды и текстур-паки для Minecraft. Скачивай и смотри трейлеры." />
+  <meta property="og:image" content="img/space.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=Raleway:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap&subset=cyrillic,latin" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script>
+    /* Тема и язык выставляются до отрисовки — чтобы не было «вспышки» */
+    (function () {
+      try {
+        var th = localStorage.getItem('tyaf-theme');
+        if (!th) th = (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        document.documentElement.className = th;
+      } catch (e) { document.documentElement.className = 'dark'; }
+    })();
+  </script>
+</head>
+<body data-server="off">
+  <script>/* Статический режим (бесплатный хостинг, без VPS). Когда появится сервер — поставь true и убери data-server="off" у <body>. */ window.TYAF_SERVER = false;</script>
+  <a href="#main" class="skip-link" data-i18n="a11y.skip">Перейти к содержимому</a>
+
+  <!-- Курсор-звезда (только для мыши) -->
+  <div id="cursor-star" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none">
+      <defs>
+        <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#a78bfa" /><stop offset="100%" stop-color="#6c3ce0" />
+        </linearGradient>
+      </defs>
+      <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="url(#starGrad)" opacity="0.95" />
+      <path d="M12 4L13.8 9.2L19 11L13.8 12.8L12 18L10.2 12.8L5 11L10.2 9.2L12 4Z" fill="#fff" opacity="0.3" />
+    </svg>
+  </div>
+  <div id="cursor-trail" aria-hidden="true"></div>
+
+  <!-- Космический фон -->
+  <div id="space-bg" aria-hidden="true"><canvas id="galaxy-canvas"></canvas></div>
+
+  <!-- Верхняя панель -->
+  <button class="burger" id="burgerBtn" type="button" aria-label="Открыть меню" data-i18n-attr="aria-label:a11y.menu" aria-expanded="false" aria-controls="sidebar">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="top-controls">
+    <button id="lang-toggle" type="button" aria-label="Сменить язык" data-i18n-attr="aria-label:a11y.lang,title:a11y.lang">RU</button>
+    <button id="theme-toggle" type="button" aria-label="Сменить тему" data-i18n-attr="aria-label:a11y.theme,title:a11y.theme">☾</button>
+  </div>
+
+  <!-- Сайдбар -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">
+      <img src="img/logo.webp" alt="TYAF TEAM" id="logo-img" width="180" height="180" />
+      <div class="logo-sub" data-i18n="logo.sub">Minecraft Crew</div>
+    </div>
+
+    <nav class="nav-menu" aria-label="Main">
+      <a href="#/" class="nav-link" data-route="home"><span class="icon">⌂</span><span data-i18n="nav.home">Главная</span></a>
+
+      <div class="nav-parent">
+        <button type="button" class="nav-link nav-toggle" id="projectsToggle" aria-expanded="false" aria-controls="sub-projects">
+          <span class="icon">✦</span><span data-i18n="nav.projects">Проекты</span><span class="chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="sub-menu" id="sub-projects">
+          <a href="#/maps" class="sub-link" data-route="maps"><span class="icon">◈</span><span data-i18n="nav.maps">Карты</span></a>
+          <a href="#/mods" class="sub-link" data-route="mods"><span class="icon">✺</span><span data-i18n="nav.mods">Моды</span></a>
+          <a href="#/texturepacks" class="sub-link" data-route="texturepacks"><span class="icon">❖</span><span data-i18n="nav.texturepacks">Текстур-паки</span></a>
+          <a href="#/other" class="sub-link" data-route="other"><span class="icon">◈</span><span data-i18n="nav.other">Другое</span></a>
+        </div>
+      </div>
+
+      <a href="#/news" class="nav-link" data-route="news"><span class="icon">✶</span><span data-i18n="nav.news">Новости</span></a>
+      <a href="#/orders" class="nav-link" data-route="orders"><span class="icon">₽</span><span data-i18n="nav.orders">Заказы</span></a>
+      <a href="#/support" class="nav-link" data-route="support"><span class="icon">✉︎</span><span data-i18n="nav.support">Поддержка</span></a>
+      <a href="#/about" class="nav-link" data-route="about"><span class="icon">✎</span><span data-i18n="nav.about">О нас</span></a>
+    </nav>
+
+    <div class="sidebar-social">
+      <a href="https://t.me/TYAF_TEAM_official" target="_blank" rel="noopener" class="social-link telegram" title="Telegram" aria-label="Telegram">
+        <svg viewBox="0 0 24 24"><path d="M21.9 4.1 18.5 20c-.3 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.9 13.8.9 12.2c-1.1-.3-1.1-1 .2-1.5L20.6 3c.9-.3 1.7.2 1.3 1.1Z"/></svg>
+      </a>
+      <a href="https://youtube.com/@dobi3005_?si=BdrAvyT2Pdr1QqR5" target="_blank" rel="noopener" class="social-link youtube" title="YouTube" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.8V8.2l6.6 3.8-6.6 3.8Z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@tyaf.team?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" class="social-link tiktok" title="TikTok" aria-label="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M14.2 3h3.1c.2 1.1.8 2.3 1.7 3.1.9.9 2 1.4 3 1.5v3.2c-1.9 0-3.7-.6-5.2-1.7v6.4a6.5 6.5 0 1 1-5.6-6.4v3.3a3.3 3.3 0 1 0 2.9 3.2V3Z"/></svg>
+      </a>
+    </div>
+    <div class="sidebar-footer">TYAF TEAM &bull; 2026</div>
+  </aside>
+
+  <!-- ============ КОНТЕНТ ============ -->
+  <main class="main" id="main" tabindex="-1">
+    <noscript><p class="noscript" data-i18n="noscript">Для работы сайта нужен включённый JavaScript.</p></noscript>
+
+    <!-- ГЛАВНАЯ -->
+    <section class="page" id="page-home" data-page="home">
+      <div class="hero">
+        <p class="eyebrow">✦ TYAF TEAM ✦</p>
+        <h1 class="hero-title">
+          <span class="line1" data-i18n="hero.line1">МЫ СОЗДАЁМ</span>
+          <span class="line2" data-i18n="hero.line2">НОВЫЕ МИРЫ</span>
+          <span class="line3" data-i18n="hero.line3">minecraft · карты · моды · текстур-паки</span>
+        </h1>
+        <p class="hero-sub" data-i18n-html="hero.sub"></p>
+        <div class="hero-btns">
+          <a href="#/maps" class="btn btn-primary" data-i18n="hero.projects">✦ Наши проекты</a>
+          <a href="https://youtube.com/@dobi3005_?si=BdrAvyT2Pdr1QqR5" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="hero.youtube">▶︎ YouTube</a>
+          <a href="#/orders" class="btn btn-gold" data-i18n="hero.order">✪ Заказать</a>
+        </div>
+      </div>
+
+      <div id="projects" class="block">
+        <div class="section-label" data-i18n="sec.projects">Проекты</div>
+        <h2 class="section-title" data-i18n="sec.projectsTitle">Что мы делаем</h2>
+        <div class="projects-grid" id="categoryGrid"></div>
+      </div>
+
+      <div class="block news-section">
+        <div class="section-label" data-i18n="sec.news">Новости</div>
+        <h2 class="section-title" data-i18n="sec.newsTitle">Последние обновления</h2>
+        <div class="marquee-wrap" data-ticker="h"><div class="marquee-content"></div></div>
+        <div class="news-grid" id="homeNews"></div>
+      </div>
+
+      <div class="block" data-orders></div>
+
+      <div class="block about-block">
+        <h2>✦ <span class="highlight" data-i18n="about.who">Кто мы</span></h2>
+        <p data-i18n-html="about.home"></p>
+        <div class="about-stats" id="homeStats"></div>
+      </div>
+    </section>
+
+    <!-- КАРТЫ / МОДЫ / ТЕКСТУР-ПАКИ / ДРУГОЕ -->
+    <section class="page" id="page-maps" data-page="maps">
+      <div class="section-label" data-i18n="nav.maps">Карты</div>
+      <h2 class="section-title" data-i18n="maps.title">Наши карты</h2>
+      <div class="maps-grid" data-list="map"></div>
+    </section>
+    <section class="page" id="page-mods" data-page="mods">
+      <div class="section-label" data-i18n="nav.mods">Моды</div>
+      <h2 class="section-title" data-i18n="mods.title">Наши моды</h2>
+      <div class="maps-grid" data-list="mod"></div>
+    </section>
+    <section class="page" id="page-texturepacks" data-page="texturepacks">
+      <div class="section-label" data-i18n="nav.texturepacks">Текстур-паки</div>
+      <h2 class="section-title" data-i18n="texturepacks.title">Наши текстур-паки</h2>
+      <div class="maps-grid" data-list="texturepack"></div>
+    </section>
+    <section class="page" id="page-other" data-page="other">
+      <div class="section-label" data-i18n="nav.other">Другое</div>
+      <h2 class="section-title" data-i18n="other.title">Другие проекты</h2>
+      <div class="maps-grid" data-list="other"></div>
+    </section>
+
+    <!-- НОВОСТИ -->
+    <section class="page" id="page-news" data-page="news">
+      <div class="section-label" data-i18n="sec.news">Новости</div>
+      <h2 class="section-title" data-i18n="news.title">Лента новостей</h2>
+      <div class="marquee-wrap news-htick" data-ticker="h"><div class="marquee-content"></div></div>
+      <div class="news-layout">
+        <div class="news-feed" id="newsFeed"></div>
+        <aside class="vticker" aria-label="Facts">
+          <div class="vticker-head"><b data-i18n="ticker.title">Интересные факты</b><span data-i18n="ticker.hint">Нажми на карточку</span></div>
+          <div class="vticker-view"><div class="vticker-track" data-ticker="v"></div></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ЗАКАЗЫ -->
+    <section class="page" id="page-orders" data-page="orders">
+      <div data-orders></div>
+    </section>
+
+    <!-- ПОДДЕРЖКА -->
+    <section class="page" id="page-support" data-page="support">
+      <div class="section-label" data-i18n="sec.support">Поддержка</div>
+      <h2 class="section-title" data-i18n="sec.supportTitle">Связаться с нами</h2>
+      <p class="page-sub srv-only" data-i18n="support.sub"></p>
+      <p class="page-sub static-only" data-i18n="support.subStatic"></p>
+
+      <div class="support-layout">
+        <div class="support-form static-only support-static">
+          <h3 data-i18n="support.staticTitle">Пиши в Telegram</h3>
+          <p data-i18n="support.staticText"></p>
+          <div class="form-actions">
+            <a class="btn btn-primary" href="https://t.me/TYAF_TEAM_official?direct" target="_blank" rel="noopener" data-i18n="support.tgDirect">Написать в Telegram</a>
+            <a class="btn btn-outline" href="https://t.me/TYAF_TEAM_official" target="_blank" rel="noopener" data-i18n="support.tgChannel">Наш канал</a>
+          </div>
+        </div>
+        <form class="support-form srv-only" id="supportForm" novalidate>
+          <div class="field">
+            <label for="sf-name" data-i18n="support.name">Имя или ник</label>
+            <input id="sf-name" name="name" type="text" maxlength="60" autocomplete="nickname" required />
+          </div>
+          <div class="field">
+            <label for="sf-contact" data-i18n="support.contact">Как с тобой связаться</label>
+            <input id="sf-contact" name="contact" type="text" maxlength="100" autocomplete="off" required data-i18n-attr="placeholder:support.contactPh" />
+            <small data-i18n="support.contactHint"></small>
+          </div>
+          <div class="field">
+            <label for="sf-topic" data-i18n="support.topic">Тема</label>
+            <select id="sf-topic" name="topic">
+              <option value="question" data-i18n="support.topic.question">Вопрос</option>
+              <option value="bug" data-i18n="support.topic.bug">Нашёл баг</option>
+              <option value="order" data-i18n="support.topic.order">Заказ</option>
+              <option value="collab" data-i18n="support.topic.collab">Сотрудничество</option>
+              <option value="other" data-i18n="support.topic.other">Другое</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sf-message" data-i18n="support.message">Сообщение</label>
+            <textarea id="sf-message" name="message" rows="6" maxlength="2000" required data-i18n-attr="placeholder:support.messagePh"></textarea>
+            <small class="counter"><span id="sf-count">0</span> / 2000</small>
+          </div>
+          <!-- ловушка для ботов: человек это поле не видит -->
+          <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+          <div class="form-status" id="sf-status" role="status" aria-live="polite"></div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="sf-send" data-i18n="support.send">Отправить</button>
+            <a class="btn btn-outline" href="https://t.me/TYAF_TEAM_official?direct" target="_blank" rel="noopener" data-i18n="support.tgDirect">Написать в Telegram</a>
+          </div>
+        </form>
+
+        <aside class="faq">
+          <h3 data-i18n="support.faq">Частые вопросы</h3>
+          <details><summary data-i18n="faq.q1"></summary><p data-i18n="faq.a1"></p></details>
+          <details><summary data-i18n="faq.q2"></summary><p data-i18n="faq.a2"></p></details>
+          <details><summary data-i18n="faq.q3"></summary><p data-i18n="faq.a3"></p></details>
+          <details><summary data-i18n="faq.q4"></summary><p data-i18n="faq.a4"></p></details>
+          <details><summary data-i18n="faq.q5"></summary><p data-i18n="faq.a5"></p></details>
+        </aside>
+      </div>
+    </section>
+
+    <!-- О НАС -->
+    <section class="page" id="page-about" data-page="about">
+      <div class="section-label" data-i18n="nav.about">О нас</div>
+      <h2 class="section-title" data-i18n="about.who">Кто мы</h2>
+      <div class="about-page">
+        <p class="about-text" id="aboutFull"></p>
+        <div class="about-stats-big" id="aboutStats"></div>
+        <div class="center">
+          <a href="https://t.me/TYAF_TEAM_official?direct" target="_blank" rel="noopener" class="about-apply-btn" data-i18n="about.apply">✦ Подать заявку в команду</a>
+        </div>
+
+        <div class="section-label" data-i18n="about.socials">Наши соцсети</div>
+        <div class="about-socials">
+          <a href="https://youtube.com/@dobi3005_?si=BdrAvyT2Pdr1QqR5" target="_blank" rel="noopener" class="about-social-link youtube">
+            <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.8V8.2l6.6 3.8-6.6 3.8Z"/></svg><span>YouTube</span></a>
+          <a href="https://t.me/TYAF_TEAM_official" target="_blank" rel="noopener" class="about-social-link telegram">
+            <svg viewBox="0 0 24 24"><path d="M21.9 4.1 18.5 20c-.3 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.9 13.8.9 12.2c-1.1-.3-1.1-1 .2-1.5L20.6 3c.9-.3 1.7.2 1.3 1.1Z"/></svg><span>Telegram</span></a>
+          <a href="https://www.tiktok.com/@tyaf.team?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" class="about-social-link tiktok">
+            <svg viewBox="0 0 24 24"><path d="M14.2 3h3.1c.2 1.1.8 2.3 1.7 3.1.9.9 2 1.4 3 1.5v3.2c-1.9 0-3.7-.6-5.2-1.7v6.4a6.5 6.5 0 1 1-5.6-6.4v3.3a3.3 3.3 0 1 0 2.9 3.2V3Z"/></svg><span>TikTok</span></a>
+          <a href="https://open.spotify.com/artist/6cNpI0Js47mpNPGNSetBv0?si=17lJQejLQv6ZjPSE_ICNsQ" target="_blank" rel="noopener" class="about-social-link spotify">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2Zm4.6 14.6c-.2.3-.6.4-.9.2-2.4-1.5-5.4-1.8-9-.9-.4.1-.7-.1-.8-.5-.1-.4.1-.7.5-.8 3.9-.9 7.3-.6 10 1.1.3.2.4.6.2.9Zm1.2-2.7c-.2.3-.6.4-1 .2-2.7-1.7-6.8-2.2-10-1.2-.4.1-.8-.1-.9-.5-.1-.4.1-.8.5-.9 3.7-1.1 8.2-.5 11.2 1.3.3.2.4.7.2 1.1Zm.1-2.8c-.2.4-.7.5-1.1.3-3.2-1.9-8.7-2.5-12.5-1.4-.4.1-.9-.1-1-.5-.1-.4.1-.9.5-1 4.3-1.3 10.2-.6 13.8 1.5.4.2.5.7.3 1.1Z"/></svg><span>Spotify</span></a>
+          <a href="https://music.apple.com/us/artist/tyaf-team/6775303725?l=ru" target="_blank" rel="noopener" class="about-social-link apple">
+            <svg viewBox="0 0 24 24"><path d="M17.1 12.7c0-2.5 2.1-3.7 2.2-3.8-1.2-1.7-3.1-1.9-3.8-1.9-1.6-.2-3.1 1-3.9 1-.8 0-2-1-3.3-1-1.7 0-3.3 1-4.2 2.5-1.8 3-.5 7.5 1.3 10 .9 1.2 1.9 2.5 3.3 2.4 1.3-.1 1.8-.8 3.4-.8 1.6 0 2.1.8 3.4.8 1.4 0 2.3-1.2 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-3-.9-3-3.8ZM14.5 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1 0-2.4.7-3.1 1.5-.7.8-1.2 2-1.1 3.1 1.2.1 2.4-.5 3.1-1.3Z"/></svg><span>Apple Music</span></a>
+          <a href="https://music.yandex.ru/artist/26031015?utm_source=web&utm_medium=copy_link" target="_blank" rel="noopener" class="about-social-link yandex">
+            <svg viewBox="0 0 24 24"><path d="M9 3v11.6A3.5 3.5 0 1 0 11 18V8h6V3H9Z"/></svg><span data-i18n="social.yandex">Яндекс Музыка</span></a>
+          <a href="https://zvuk.com/artist/214304649" target="_blank" rel="noopener" class="about-social-link zvuk">
+            <svg viewBox="0 0 24 24"><path d="M3 10h2v4H3v-4Zm4-3h2v10H7V7Zm4-4h2v18h-2V3Zm4 4h2v10h-2V7Zm4 3h2v4h-2v-4Z"/></svg><span>Zvuk</span></a>
+          <a href="https://vk.ru/club239416515" target="_blank" rel="noopener" class="about-social-link vk">
+            <svg viewBox="0 0 24 24"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0Zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.202 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744Z"/></svg><span data-i18n="social.vkGroup">VK (группа)</span></a>
+          <a href="https://vk.ru/artist/tyafteam" target="_blank" rel="noopener" class="about-social-link vk">
+            <svg viewBox="0 0 24 24"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0Zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.202 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744Z"/></svg><span data-i18n="social.vkArtist">VK (артист)</span></a>
+        </div>
+
+        <div class="credits">
+          <div class="section-label" data-i18n="about.credits">Авторство</div>
+          <p id="creditsText"></p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div id="footerMade"></div>
+      <div class="muted" data-i18n="footer.privacy"></div>
+    </footer>
+  </main>
+
+  <!-- Музыкальный плеер -->
+  <div id="music-player" role="group" aria-label="Music">
+    <button type="button" id="prev-track" aria-label="Предыдущий трек" data-i18n-attr="aria-label:a11y.prevTrack">⏮︎</button>
+    <button type="button" id="play-toggle" aria-label="Играть / пауза" data-i18n-attr="aria-label:a11y.play">
+      <span id="play-icon">▶</span>
+      <span id="music-title" class="music-title"></span>
+    </button>
+    <button type="button" id="next-track" aria-label="Следующий трек" data-i18n-attr="aria-label:a11y.nextTrack">⏭︎</button>
+    <span class="playing-indicator" id="playing-indicator" hidden></span>
+  </div>
+  <audio id="bg-audio" preload="none"></audio>
+
+  <button type="button" class="to-top" id="toTop" aria-label="Наверх" data-i18n-attr="aria-label:a11y.toTop" hidden>↑</button>
+
+  <!-- Модальное окно проекта -->
+  <div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="pmTitle" hidden>
+    <div class="modal-box modal-project">
+      <button type="button" class="modal-close" data-close aria-label="Закрыть" data-i18n-attr="aria-label:a11y.close">✕</button>
+
+      <div class="media">
+        <div class="media-tabs" id="pmTabs" hidden>
+          <button type="button" data-tab="gallery" class="active" data-i18n="modal.gallery">Скриншоты</button>
+          <button type="button" data-tab="video" data-i18n="modal.video">Видео</button>
+        </div>
+        <div class="media-pane" id="pmGallery">
+          <div class="gallery">
+            <div class="gallery-track" id="pmTrack"></div>
+            <button type="button" class="gallery-btn prev" id="pmPrev" aria-label="Назад" data-i18n-attr="aria-label:a11y.prev">‹</button>
+            <button type="button" class="gallery-btn next" id="pmNext" aria-label="Вперёд" data-i18n-attr="aria-label:a11y.next">›</button>
+            <div class="gallery-dots" id="pmDots"></div>
+          </div>
+        </div>
+        <div class="media-pane" id="pmVideo" hidden></div>
+      </div>
+
+      <div class="modal-info">
+        <div class="modal-head">
+          <h2 id="pmTitle"></h2>
+          <span class="modal-author"><span data-i18n="by">Автор</span>: <strong id="pmAuthor"></strong></span>
+        </div>
+        <p id="pmDesc" class="modal-desc"></p>
+        <div class="modal-fact" id="pmFact"></div>
+
+        <div class="stat-row" id="pmStats"></div>
+
+        <div class="download-box">
+          <div class="download-title" data-i18n="modal.download">Скачать</div>
+          <div class="download-btns">
+            <a class="btn btn-tg" id="pmTg" href="#" target="_blank" rel="noopener"><span data-i18n="modal.viaTg">Скачать через Telegram</span></a>
+            <a class="btn btn-primary" id="pmFile" href="#" download><span data-i18n="modal.viaFile">Скачать файл</span> <small id="pmSize"></small></a>
+          </div>
+          <details class="install">
+            <summary data-i18n="modal.install">Как установить</summary>
+            <div data-i18n-html="modal.installBody"></div>
+          </details>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="pmShare" data-i18n="modal.share">Поделиться</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно факта / новости -->
+  <div class="modal-overlay" id="factModal" role="dialog" aria-modal="true" aria-labelledby="factTitle" hidden>
+    <div class="modal-box modal-fact-box">
+      <button type="button" class="modal-close" data-close aria-label="Закрыть" data-i18n-attr="aria-label:a11y.close">✕</button>
+      <div class="fact-icon" id="factIcon">✦</div>
+      <h2 id="factTitle"></h2>
+      <p id="factText"></p>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toasts" aria-live="polite"></div>
+
+  <script src="js/projects.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
