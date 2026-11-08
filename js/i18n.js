@@ -138,6 +138,10 @@ window.I18N = {
     'n.site-launch.title': 'Сайт TYAF TEAM открыт!',
     'n.site-launch.desc': 'Мы запустили официальный сайт команды. Здесь собраны наши проекты, новости и контакты: скачивай карты любым удобным способом, смотри трейлеры, ставь лайки и пиши в поддержку прямо на сайте. Добро пожаловать на борт!',
     'n.site-launch.fact': 'Это первая новость на сайте — и пока что самая свежая. Дальше будет интереснее!',
+    
+    'n.musicplayer-release.title': 'Выпуск нового аддона — Музыкальный плеер!',
+    'n.musicplayer-release.desc': 'Мы выкатили музыкальный плеер для Minecraft Bedrock. Слушай музыку прямо во время игры: открой меню паузы → «Музыка». Внутри — три авторских трека TYAF TEAM, музыка из игры и слоты под свою музыку. Нужен Minecraft Bedrock 1.21 или новее. Скачать файл можно в разделе «Текстур-паки».',
+    'n.musicplayer-release.fact': 'Это первый релиз после запуска сайта. Встроенные треки — те же, что играют на этом сайте.',
 
     'support.sub': 'Вопрос, баг или идея? Напиши нам прямо здесь — ответим в Telegram или по контакту, который ты оставишь.',
     'support.name': 'Имя или ник',
@@ -340,6 +344,10 @@ window.I18N = {
     'n.site-launch.title': 'The TYAF TEAM website is live!',
     'n.site-launch.desc': 'We have launched the official team website. Our projects, news and contacts are all here: download maps your way, watch trailers, leave likes and contact support right on the site. Welcome aboard!',
     'n.site-launch.fact': 'This is the very first post on the site — and, for now, the latest one. More is on the way!',
+    
+    'n.musicplayer-release.title': 'New addon released — Music Player!',
+    'n.musicplayer-release.desc': 'We have shipped a music player for Minecraft Bedrock. Listen to music while you play: open the pause menu → “Music”. Inside you will find three original TYAF TEAM tracks, in-game music and slots for your own music. Requires Minecraft Bedrock 1.21 or newer. Grab the file in the “Texture packs” section.',
+    'n.musicplayer-release.fact': 'This is the first release after the site launch. The built-in tracks are the same ones that play on this site.',
 
     'support.sub': 'A question, a bug or an idea? Write to us right here — we will reply on Telegram or via the contact you leave.',
     'support.name': 'Name or nickname',
