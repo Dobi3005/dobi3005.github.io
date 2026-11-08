@@ -74,6 +74,13 @@
     /* ---------- Новости (сверху — самые свежие) ---------- */
     NEWS: [
       {
+        id: 'musicplayer-release',
+        date: '2026-11-01',
+        author: 'Dobi3005',
+        icon: '♫',
+        image: 'img/tp1_1.webp'
+      },
+      {
         id: 'site-launch',
         date: '2026-10-31',
         author: 'Dobi3005',
